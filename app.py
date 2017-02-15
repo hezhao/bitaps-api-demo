@@ -1,3 +1,4 @@
+import json
 from flask import Flask, request, jsonify
 app = Flask(__name__)
 
@@ -8,7 +9,7 @@ def hello():
 
 @app.route("/paid", methods=['POST'])
 def paid():
-    # print(request.args.get('invoice'))
+    print(json.dumps(request.args))
     return jsonify(request.args)
 
 
