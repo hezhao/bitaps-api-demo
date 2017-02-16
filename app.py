@@ -9,12 +9,9 @@ def hello():
 
 @app.route("/paid", methods=['POST'])
 def paid():
-    print(str(request))
-    print(dir(request))
     print(json.dumps(request.form))
-    print(request.get_json)
-    print(request.json)
-    print(request)
+    print(json.dumps(request.json))
+    print(json.dumps(request))
     return jsonify(request.args)
 
 
