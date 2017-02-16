@@ -10,8 +10,8 @@ def hello():
 @app.route("/paid", methods=['POST'])
 def paid():
     print(json.dumps(request.form))
-    print(request)
-    return jsonify(request)
+    print(str(request))
+    return jsonify(request.args)
 
 
 if __name__ == "__main__":
