@@ -11,7 +11,6 @@ def hello():
 def paid():
     print(json.dumps(request.form))
     print(json.dumps(request.json))
-    print(json.dumps(request))
     return jsonify(request.args)
 
 
