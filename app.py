@@ -12,7 +12,9 @@ def paid():
     print(str(request))
     print(dir(request))
     print(json.dumps(request.form))
-    print(json.dump(request.args))
+    print(request.get_json)
+    print(request.json)
+    print(request)
     return jsonify(request.args)
 
 
