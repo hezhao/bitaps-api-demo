@@ -18,9 +18,10 @@ def paid():
         source_id = source['id']
         print('source id: ' + source_id)
     elif payload_type == 'charge.succeeded':
-        payment = payload['data']['object']
-        payment_id = payment['id']
-        print('payment id: ' + payment_id)
+        charge = payload['data']['object']
+        charge_id = charge['id']
+        print(charge)
+        print('charge id: ' + charge_id)
     return jsonify(request.json)
 
 @app.route("/orders/<order_id>/receipt")
