@@ -11,9 +11,9 @@ def hello():
 def paid():
     payload = request.json
     print(json.dumps(payload))
-    source = payload.data.object.source
-    print('payload type: ' + payload.type)
-    print('source id: ' + source.id)
+    source = payload['data']['object']['source']
+    print('payload type: ' + payload['type'])
+    print('source id: ' + source['id'])
     return jsonify(request.json)
 
 @app.route("/orders/<order_id>/receipt")
