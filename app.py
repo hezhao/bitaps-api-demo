@@ -16,9 +16,8 @@ def paid():
     return jsonify(request.args)
 
 @app.route("/orders/<order_id>/receipt")
-def receipt():
-    return order_id
+def receipt(order_id):
+    return str(order_id)
 
 if __name__ == "__main__":
     app.run()
-https://www.coinbase.com/settings/api
