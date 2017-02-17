@@ -17,7 +17,7 @@ def paid():
         source = payload['data']['object']
         source_id = source['id']
         print('source id: ' + source_id)
-    elif payload_type == 'charge.succeeded'
+    elif payload_type == 'charge.succeeded':
         payment = payload['data']['object']
         payment_id = payment['id']
         print('payment id: ' + payment_id)
