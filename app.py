@@ -15,6 +15,9 @@ def paid():
     print(notification.status, notification.transaction.id)
     return jsonify(request.args)
 
+@app.route("/orders/<order_id>/receipt")
+def receipt():
+    return order_id
 
 if __name__ == "__main__":
     app.run()
