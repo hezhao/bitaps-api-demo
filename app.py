@@ -9,11 +9,12 @@ def hello():
 
 @app.route("/notifications", methods=['POST'])
 def paid():
-    print(json.dumps(request.json))
-    print(request.json.type)
-    notification = request.json.data
-    print(notification.status, notification.transaction.id)
-    return jsonify(request.args)
+    payload = request.json
+    print(json.dumps(payload))
+    source = payload.data.object.source
+    print('payload type: ' + payload.type)
+    print('source id: ' + source.id)
+    return jsonify(request.json)
 
 @app.route("/orders/<order_id>/receipt")
 def receipt(order_id):
