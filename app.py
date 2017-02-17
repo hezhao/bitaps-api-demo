@@ -10,10 +10,17 @@ def hello():
 @app.route("/notifications", methods=['POST'])
 def paid():
     payload = request.json
-    print(json.dumps(payload))
-    source = payload['data']['object']['source']
-    print('payload type: ' + payload['type'])
-    print('source id: ' + source['id'])
+    # print(json.dumps(payload))
+    payload_type = payload['type']
+    print('payload type: ' + payload_type)
+    if payload_type == 'source.chargeable':
+        source = payload['data']['object']
+        source_id = source['id']
+        print('source id: ' + source_id)
+    elif payload_type == 'charge.succeeded'
+        payment = payload['data']['object']
+        payment_id = payment['id']
+        print('payment id: ' + payment_id)
     return jsonify(request.json)
 
 @app.route("/orders/<order_id>/receipt")
