@@ -7,12 +7,15 @@ app = Flask(__name__)
 def hello():
     return "Hello World!"
 
-@app.route("/paid", methods=['POST'])
+@app.route("/notifications", methods=['POST'])
 def paid():
-    print(json.dumps(request.form))
     print(json.dumps(request.json))
+    print(request.json.type)
+    notification = request.json.data
+    print(notification.status, notification.transaction.id)
     return jsonify(request.args)
 
 
 if __name__ == "__main__":
     app.run()
+https://www.coinbase.com/settings/api
