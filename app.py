@@ -9,22 +9,21 @@ def hello():
 
 @app.route("/notifications", methods=['POST'])
 def paid():
-    payload = request.json
-    payload_type = payload['type']
-    print('payload type: ' + payload_type)
-    if payload_type == 'source.chargeable':
-        source = payload['data']['object']
-        source_id = source['id']
-        print('source id: ' + source_id)
-    elif payload_type == 'source.canceled':
+    payload = json.loads(request.body)
+    print('New notification: ' + payload.type)
+    if payload.type == 'source.chargeable':
+        source = payload.data.object
+        print('source id: ' + source.id)
+    elif payload.type == 'source.canceled':
         source = payload['data']['object']
         source_id = source['id']
         print('source id: ' + source_id)
         print(json.dumps(source))
-    elif payload_type == 'charge.succeeded':
-        charge = payload['data']['object']
-        charge_id = charge['id']
-        print('charge id: ' + charge_id)
+    elif payload.type == 'charge.succeeded':
+        charge = payload.data.object
+        source = charge.source
+        print('source id: ' + source.id)
+        print('charge id: ' + charge.id)
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 
