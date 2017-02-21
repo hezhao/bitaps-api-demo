@@ -10,7 +10,7 @@ def hello():
 @app.route("/notifications", methods=['POST'])
 def notifications():
     payload = request.json
-    payload_type = payload.type
+    payload_type = payload['type']
     print('New notification: ' + payload_type)
     if payload_type == 'source.chargeable':
         source = payload['data']['object']
