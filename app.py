@@ -5,14 +5,14 @@ app = Flask(__name__)
 
 class Payload(object):
     def __init__(self, j):
-        self.__dict__ = json.loads(j)
+        self.__dict__ = j
 
 @app.route("/")
 def hello():
     return "Hello World!"
 
 @app.route("/notifications", methods=['POST'])
-def paid():
+def notifications():
     payload = Payload(request.json)
     print('New notification: ' + payload.type)
     if payload.type == 'source.chargeable':
