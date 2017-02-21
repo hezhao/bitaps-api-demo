@@ -13,7 +13,7 @@ def hello():
 
 @app.route("/checkout", methods=['POST'])
 def checkout():
-    source = coin.create_source()
+    source = coin.create_source_demo()
     print('source id: ' + source.id)
     coin.generate_qrcode(source.bitcoin.uri)
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
@@ -32,7 +32,7 @@ def notifications():
         charge = coin.create_charge(
             amount=source['amount'],
             currency=source['currency'],
-            source=source_id,
+            source_id=source_id,
             receipt_email=source['owner']['email'],
             description=source['owner']['email'],
             metadata=source['metadata'])
