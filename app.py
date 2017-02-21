@@ -1,6 +1,6 @@
 import coin
 import json
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Markup, render_template
 app = Flask(__name__)
 
 
@@ -11,12 +11,17 @@ coin = coin.Coin()
 def hello():
     return "Hello World!"
 
-@app.route("/checkout", methods=['POST'])
+@app.route("/checkout")
 def checkout():
+    data = dict()
     source = coin.create_source_demo()
-    print('source id: ' + source.id)
-    coin.generate_qrcode(source.bitcoin.uri)
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+    data['source_id'] = source.id
+    data['uri'] = source.bitcoin.uri
+    data['amount'] = source.amount
+    img_uri = coin.generate_qrcode(source.bitcoin.uri)
+    print(json.dumps(data))
+    img = Markup('<img src="data:image/png;base64,' + img_uri + '" />')
+    return render_template('checkout.html', img=img, data=json.dumps(data))
 
 @app.route("/notifications", methods=['POST'])
 def notifications():
@@ -27,8 +32,6 @@ def notifications():
         source = payload['data']['object']
         source_id = source['id']
         print('source id: ' + source_id)
-        # This method should be called in the callback,
-        # source is retrieved from source.chargeable event payload
         charge = coin.create_charge(
             amount=source['amount'],
             currency=source['currency'],
@@ -37,10 +40,6 @@ def notifications():
             description=source['owner']['email'],
             metadata=source['metadata'])
         print(charge)
-    elif payload_type == 'source.canceled':
-        source = payload['data']['object']
-        source_id = source['id']
-        print('source id: ' + source_id)
     elif payload_type == 'charge.succeeded':
         charge = payload['data']['object']
         source = charge['source']
@@ -48,6 +47,10 @@ def notifications():
         source_id = source['id']
         print('source id: ' + source_id)
         print('charge id: ' + charge_id)
+    elif payload_type == 'source.canceled':
+        source = payload['data']['object']
+        source_id = source['id']
+        print('source id: ' + source_id)
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 

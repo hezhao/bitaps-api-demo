@@ -1,3 +1,4 @@
+from cStringIO import StringIO
 import json
 import os
 import qrcode
@@ -33,7 +34,7 @@ class Coin():
             'State': 'OR',
             'Postal Code': '97171',
         }
-        return self.create_source(amount_in_cents=105, metadata=metadata, email='joe.doe@example.com')
+        return self.create_source(amount_in_cents=888, metadata=metadata, email='joe.doe@wk.com')
 
     def create_charge(self, amount, currency, source_id, receipt_email, description, metadata):
         # This method should be called in the callback,
@@ -60,7 +61,11 @@ class Coin():
 
     def generate_qrcode(self, uri):
         img = qrcode.make(uri)
-        img.save('out.png')
+        # img.save('out.png')
+        output = StringIO()
+        img.save(output, format='PNG')
+        img_uri = output.getvalue().encode("base64")
+        return img_uri
 
 
 if __name__ == '__main__':
