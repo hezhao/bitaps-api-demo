@@ -3,13 +3,17 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 
+class Payload(object):
+    def __init__(self, j):
+        self.__dict__ = json.loads(j)
+
 @app.route("/")
 def hello():
     return "Hello World!"
 
 @app.route("/notifications", methods=['POST'])
 def paid():
-    payload = json.loads(request.json)
+    payload = Payload(request.json)
     print('New notification: ' + payload.type)
     if payload.type == 'source.chargeable':
         source = payload.data.object
