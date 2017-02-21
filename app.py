@@ -18,11 +18,12 @@ def paid():
         print('source id: ' + source_id)
     elif payload_type == 'source.canceled':
         source = payload['data']['object']
-        print(source)
+        source_id = source['id']
+        print('source id: ' + source_id)
+        print(json.dumps(source))
     elif payload_type == 'charge.succeeded':
         charge = payload['data']['object']
         charge_id = charge['id']
-        print(charge)
         print('charge id: ' + charge_id)
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
