@@ -1,2 +1,5 @@
 flask
+pillow
 gunicorn
+qrcode
+stripe
