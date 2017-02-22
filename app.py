@@ -15,13 +15,13 @@ def hello():
 def checkout():
     metadata = {
         'Name': 'Joe Doe',
-        'Email address':'zhao.he+fill_now@wk.com',
+        'Email address':'joe.doe@example.com',
         'Shipping address': '123 5th Avenue',
         'City': 'Portland',
         'State': 'OR',
         'Postal Code': '97171',
     }
-    source = coin.create_source(amount_in_cents=123, metadata=metadata, email='zhao.he+fill_now@wk.com')
+    source = coin.create_source(amount_in_cents=123, metadata=metadata, email='joe.doe@example.com')
     data = dict()
     data['source_id'] = source.id
     data['uri'] = source.bitcoin.uri
