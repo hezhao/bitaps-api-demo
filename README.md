@@ -1,2 +1,2 @@
-- `GET` https://bitaps-api-demo.herokuapp.com
-- `POST` https://bitaps-api-demo.herokuapp.com/paid
+- `GET` https://bitaps-api-demo.herokuapp.com/checkout
+- `POST` https://bitaps-api-demo.herokuapp.com/notifications
