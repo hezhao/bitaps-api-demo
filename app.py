@@ -1,4 +1,4 @@
-import coin
+from api import coin
 import json
 from flask import Flask, request, jsonify, Markup, render_template
 app = Flask(__name__)
@@ -13,8 +13,16 @@ def hello():
 
 @app.route("/checkout")
 def checkout():
+    metadata = {
+        'Name': 'Joe Doe',
+        'Email address':'zhao.he+fill_now@wk.com',
+        'Shipping address': '123 5th Avenue',
+        'City': 'Portland',
+        'State': 'OR',
+        'Postal Code': '97171',
+    }
+    source = coin.create_source(amount_in_cents=123, metadata=metadata, email='zhao.he+fill_now@wk.com')
     data = dict()
-    source = coin.create_source_demo()
     data['source_id'] = source.id
     data['uri'] = source.bitcoin.uri
     data['amount'] = source.amount
@@ -31,7 +39,6 @@ def notifications():
     if payload_type == 'source.chargeable':
         source = payload['data']['object']
         source_id = source['id']
-        print('source id: ' + source_id)
         charge = coin.create_charge(
             amount=source['amount'],
             currency=source['currency'],
@@ -39,7 +46,8 @@ def notifications():
             receipt_email=source['owner']['email'],
             description=source['owner']['email'],
             metadata=source['metadata'])
-        print(charge)
+        print('source id: ' + source_id)
+        print('charge id: ' + charge.id)
     elif payload_type == 'charge.succeeded':
         charge = payload['data']['object']
         source = charge['source']

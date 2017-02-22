@@ -1,4 +1,6 @@
+coverage
 flask
+nose
 pillow
 gunicorn
 qrcode
